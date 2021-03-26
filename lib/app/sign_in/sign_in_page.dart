@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter/app/sign_in/sign_in_button.dart';
+import 'package:time_tracker_flutter/app/sign_in/social_signIn_button.dart';
 import 'package:time_tracker_flutter/common_widgets/custom_raised_button.dart';
 
 class SignInPage extends StatelessWidget {
@@ -36,17 +38,43 @@ class _BuildContent extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 8.0),
-          CustomRaisedButton(
-            child: Text(
-              'Sign in with Google',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15.0,
-              ),
-            ),
+          SizedBox(height: 48.0),
+          SocialSignInButton(
+            assetname: 'images/google-logo.png',
+            text: 'Sign in with Google',
+            textColor: Colors.black87,
             color: Colors.white,
-            borderRadius: 4.0,
+            onPressed: () {},
+          ),
+          SizedBox(height: 8.0),
+          SocialSignInButton(
+            assetname: 'images/facebook-logo.png',
+            text: 'Sign in with Facebook',
+            textColor: Colors.white,
+            color: Color(0xff334d92),
+            onPressed: () {},
+          ),
+          SizedBox(height: 8.0),
+          SignInButton(
+            text: 'Sign in with E-mail',
+            textColor: Colors.white,
+            color: Colors.teal[700],
+            onPressed: () {},
+          ),
+          SizedBox(height: 8.0),
+          Text(
+            'OR',
+            style: TextStyle(
+              fontSize: 14.0,
+              color: Colors.black87,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 8.0),
+          SignInButton(
+            text: 'Go Anonymous',
+            textColor: Colors.black,
+            color: Colors.lime[300],
             onPressed: () {},
           ),
         ],
