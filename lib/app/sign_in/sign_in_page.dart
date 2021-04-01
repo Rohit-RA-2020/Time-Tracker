@@ -1,31 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter/app/sign_in/social_signIn_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class SignInPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Time Tracker'),
-        elevation: 2.0,
-      ),
-      body: _BuildContent(),
-      backgroundColor: Colors.grey[200],
-    );
-  }
-}
+  const SignInPage({Key key, @required this.onSignIn}) : super(key: key);
 
-class _BuildContent extends StatelessWidget {
-  const _BuildContent({
-    Key key,
-  }) : super(key: key);
+  final void Function(User) onSignIn;
 
   Future<void> _signInAnonymously() async {
     try {
       final userCredentials = await FirebaseAuth.instance.signInAnonymously();
-      print('${userCredentials.user.uid}');
+      onSignIn(userCredentials.user);
     } catch (e) {
       print(e.toString());
     }
@@ -33,6 +19,17 @@ class _BuildContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Time Tracker'),
+        elevation: 2.0,
+      ),
+      body: _buildContent(),
+      backgroundColor: Colors.grey[200],
+    );
+  }
+
+  Widget _buildContent() {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Column(
