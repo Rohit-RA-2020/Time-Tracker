@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "65256274890-atuhap1sjlbjorh6v8j2sihr6t6amnhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.time_tracker_flutter",
+            "certificate_hash": "39ce8aac916da87b955dc8bf5d1ba037bd7520d7"
+          }
+        },
+        {
           "client_id": "65256274890-d1rev85p2th75rj8gvqggf56at7tha26.apps.googleusercontent.com",
           "client_type": 3
         }
