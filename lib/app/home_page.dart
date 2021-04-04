@@ -31,6 +31,11 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+      body: Center(
+          child: Text(
+        'Login Sucess',
+        style: TextStyle(fontSize: 20),
+      )),
     );
   }
 }
