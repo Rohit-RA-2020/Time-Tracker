@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:time_tracker_flutter/common_widgets/form_submit_button.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
 
@@ -51,23 +52,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         ? 'Need an account? Register'
         : 'Have an account? Sign In';
     return [
-      TextField(
-        controller: _emailController,
-        decoration: InputDecoration(
-          labelText: 'Email',
-          hintText: 'Enter your mail ID',
-        ),
-        keyboardType: TextInputType.emailAddress,
-      ),
+      _buildEmailTextField(emailController: _emailController),
       SizedBox(height: 8.0),
-      TextField(
-        controller: _passwordController,
-        decoration: InputDecoration(
-          labelText: 'Password',
-          hintText: 'Enter your password',
-        ),
-        obscureText: true,
-      ),
+      _buildPasswordTextField(passwordController: _passwordController),
       SizedBox(height: 16.0),
       FormSubmitButton(
         onPressed: _submit,
@@ -90,6 +77,53 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         mainAxisSize: MainAxisSize.min,
         children: _buildChildren(),
       ),
+    );
+  }
+}
+
+class _buildPasswordTextField extends StatelessWidget {
+  const _buildPasswordTextField({
+    Key key,
+    @required TextEditingController passwordController,
+  })  : _passwordController = passwordController,
+        super(key: key);
+
+  final TextEditingController _passwordController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _passwordController,
+      decoration: InputDecoration(
+        labelText: 'Password',
+        hintText: 'Enter your password',
+      ),
+      textInputAction: TextInputAction.done,
+      obscureText: true,
+    );
+  }
+}
+
+class _buildEmailTextField extends StatelessWidget {
+  const _buildEmailTextField({
+    Key key,
+    @required TextEditingController emailController,
+  })  : _emailController = emailController,
+        super(key: key);
+
+  final TextEditingController _emailController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _emailController,
+      decoration: InputDecoration(
+        labelText: 'Email',
+        hintText: 'Enter your mail ID',
+      ),
+      keyboardType: TextInputType.emailAddress,
+      autocorrect: false,
+      textInputAction: TextInputAction.next,
     );
   }
 }
