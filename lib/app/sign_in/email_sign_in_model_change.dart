@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:time_tracker_flutter/app/sign_in/validators.dart';
+import 'package:time_tracker_flutter/services/auth.dart';
 
 import 'email_sign_in_model.dart';
 
 class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
   EmailSignInChangeModel({
+    @required this.auth,
     this.email = '',
     this.password = '',
     this.formType = EmailSignInFormType.signIn,
@@ -12,11 +14,26 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
     this.submitted = false,
   });
 
+  final AuthBase auth;
   String email;
   String password;
   EmailSignInFormType formType;
   bool isLoading;
   bool submitted;
+
+  Future<void> submit() async {
+    updateWith(submitted: true, isLoading: true);
+    try {
+      if (formType == EmailSignInFormType.signIn) {
+        await auth.signInWithEmailAndPassword(email, password);
+      } else {
+        await auth.createUserWithEmailAndPassword(email, password);
+      }
+    } catch (e) {
+      updateWith(isLoading: false);
+      rethrow;
+    }
+  }
 
   String get primaryButtonText {
     return formType == EmailSignInFormType.signIn
@@ -45,6 +62,22 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
     bool showErrorText = submitted & !emailValidator.isValid(email);
     return showErrorText ? invalidEmailErrorText : null;
   }
+
+  void toogleFormType() {
+    final formType = this.formType == EmailSignInFormType.signIn
+        ? EmailSignInFormType.register
+        : EmailSignInFormType.signIn;
+    updateWith(
+      email: '',
+      password: '',
+      formType: formType,
+      isLoading: false,
+      submitted: false,
+    );
+  }
+
+  void updateEmail(String email) => updateWith(email: email);
+  void updatePassword(String password) => updateWith(password: password);
 
   void updateWith({
     String email,
