@@ -30,7 +30,7 @@ class JobsPage extends StatelessWidget {
 
   void _createJob(BuildContext context) async {
     final database = Provider.of<Database>(context, listen: false);
-    await database.createJob(Job(name: 'Coding', ratePerHour: 5));
+    await database.createJob(Job(name: 'Blogging', ratePerHour: 10));
   }
 
   @override
