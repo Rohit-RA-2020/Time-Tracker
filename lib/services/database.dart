@@ -5,7 +5,7 @@ import 'package:time_tracker_flutter/services/api_path.dart';
 
 abstract class Database {
   Future<void> createJob(Job job);
-  void jobsStream();
+  Stream<List<Job>> jobsStream();
 }
 
 class FirestoreDatabase implements Database {
