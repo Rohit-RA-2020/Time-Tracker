@@ -32,7 +32,7 @@ class FirestoreDatabase implements Database {
                   )
                 : null;
           },
-        ));
+        ).toList());
   }
 
   Future<void> _setData({String path, Map<String, dynamic> data}) async {
