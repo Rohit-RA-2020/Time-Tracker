@@ -16,12 +16,36 @@ class AddJobPage extends StatefulWidget {
 }
 
 class _AddJobPageState extends State<AddJobPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  bool _validateAndSaveForm() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  void _submit() {
+    if (_validateAndSaveForm()) {
+      print('form saved');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
         title: Text('New Job'),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Save',
+                style: TextStyle(fontSize: 18, color: Colors.white)),
+            onPressed: _submit,
+          ),
+        ],
       ),
       body: _buildContent(),
       backgroundColor: Colors.grey[200],
@@ -42,6 +66,7 @@ class _AddJobPageState extends State<AddJobPage> {
 
   Widget _buildForm() {
     return Form(
+      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: _buildFormChildren(),
