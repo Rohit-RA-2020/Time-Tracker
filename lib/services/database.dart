@@ -24,6 +24,6 @@ class FirestoreDatabase implements Database {
 
   Stream<List<Job>> jobsStream() => _service.collectionStream(
         path: APIPath.jobs(uid),
-        builder: (data) => Job.fromMap(data),
+        builder: (data, documentID) => Job.fromMap(data, documentID),
       );
 }
