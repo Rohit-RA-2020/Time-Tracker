@@ -65,9 +65,15 @@ class JobsPage extends StatelessWidget {
       builder: (context, snapshot) {
         return ListItemsBuilder<Job>(
           snapshot: snapshot,
-          itemBuilder: (context, job) => JobListTile(
-            job: job,
-            onTap: () => EditJobPage.show(context, job: job),
+          itemBuilder: (context, job) => Dismissible(
+            key: Key('job-${job.id}'),
+            background: Container(color: Colors.red),
+            direction: DismissDirection.endToStart,
+            onDismissed: (direction) {},
+            child: JobListTile(
+              job: job,
+              onTap: () => EditJobPage.show(context, job: job),
+            ),
           ),
         );
       },
