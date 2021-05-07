@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/app/home/jobs/edit_job_page.dart';
@@ -6,6 +7,7 @@ import 'package:time_tracker_flutter/app/home/jobs/job_list_file.dart';
 import 'package:time_tracker_flutter/app/home/jobs/list_items_builder.dart';
 import 'package:time_tracker_flutter/app/home/models/job.dart';
 import 'package:time_tracker_flutter/common_widgets/show_alert_dialog.dart';
+import 'package:time_tracker_flutter/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
 import 'package:time_tracker_flutter/services/database.dart';
 
@@ -29,6 +31,19 @@ class JobsPage extends StatelessWidget {
     );
     if (didRequestSignOut) {
       _signOut(context);
+    }
+  }
+
+  Future<void> _delete(BuildContext context, Job job) async {
+    try {
+      final database = Provider.of<Database>(context, listen: false);
+      await database.deleteJob(job);
+    } on FirebaseException catch (e) {
+      showExceptionAlertDialog(
+        context,
+        title: 'Operation failed',
+        exception: e,
+      );
     }
   }
 
@@ -69,7 +84,7 @@ class JobsPage extends StatelessWidget {
             key: Key('job-${job.id}'),
             background: Container(color: Colors.red),
             direction: DismissDirection.endToStart,
-            onDismissed: (direction) {},
+            onDismissed: (direction) => _delete(context, job),
             child: JobListTile(
               job: job,
               onTap: () => EditJobPage.show(context, job: job),
