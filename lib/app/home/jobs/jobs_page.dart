@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker_flutter/app/home/job_entries/job_entries_page.dart';
 import 'package:time_tracker_flutter/app/home/jobs/edit_job_page.dart';
-import 'package:time_tracker_flutter/app/home/jobs/empty_content.dart';
 import 'package:time_tracker_flutter/app/home/jobs/job_list_file.dart';
 import 'package:time_tracker_flutter/app/home/jobs/list_items_builder.dart';
 import 'package:time_tracker_flutter/app/home/models/job.dart';
@@ -87,7 +87,7 @@ class JobsPage extends StatelessWidget {
             onDismissed: (direction) => _delete(context, job),
             child: JobListTile(
               job: job,
-              onTap: () => EditJobPage.show(context, job: job),
+              onTap: () => JobEntriesPage.show(context, job),
             ),
           ),
         );
