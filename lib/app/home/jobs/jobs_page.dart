@@ -85,7 +85,16 @@ class JobsPage extends StatelessWidget {
           snapshot: snapshot,
           itemBuilder: (context, job) => Dismissible(
             key: Key('job-${job.id}'),
-            background: Container(color: Colors.red),
+            background: Container(
+              color: Colors.red,
+              child: Center(
+                child: Text(
+                  'Swipe to dismiss',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) => _delete(context, job),
             child: JobListTile(
