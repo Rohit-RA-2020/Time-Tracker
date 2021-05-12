@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TabItem _currentTab = TabItem.job;
+  TabItem _currentTab = TabItem.jobs;
   @override
   Widget build(BuildContext context) {
     return CupertinoHomeScaffold(
