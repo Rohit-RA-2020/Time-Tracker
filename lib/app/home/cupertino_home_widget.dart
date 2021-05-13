@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter/app/home/tab_item.dart';
 
 class CupertinoHomeScaffold extends StatelessWidget {
-  const CupertinoHomeScaffold(
-      {Key key, @required this.currentTab, @required this.onSelectTab})
-      : super(key: key);
+  const CupertinoHomeScaffold({
+    Key key,
+    @required this.currentTab,
+    @required this.onSelectTab,
+    @required this.widgetBuilders,
+  }) : super(key: key);
 
   final TabItem currentTab;
   final ValueChanged<TabItem> onSelectTab;
+  final Map<TabItem, WidgetBuilder> widgetBuilders;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +26,9 @@ class CupertinoHomeScaffold extends StatelessWidget {
         onTap: (index) => onSelectTab(TabItem.values[index]),
       ),
       tabBuilder: (context, index) {
+        final item = TabItem.values[index];
         return CupertinoTabView(
-          builder: (context) {
-            return Container();
-          },
+          builder: (context) => widgetBuilders[item](context),
         );
       },
     );
