@@ -25,6 +25,8 @@ class AccountPage extends StatelessWidget {
       _signOut(context);
     }
   }
+  
+  // Who Wrote this Piece of shit? 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
